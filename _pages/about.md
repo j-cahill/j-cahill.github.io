@@ -2,9 +2,13 @@
 title: "About"
 permalink: /about/
 header:
-  image: "/images/zakim.jpg"
+  image: "/images/new-york-city-skyline.jpg"
 ---
 
-I'm a senior data scientist who excels at data wrangling, machine learning, exploratory analysis, and data visualizations.
+I'm a data analyst and public health researcher at the Columbia University
+Mailman School of Public Health, and a part time MS student in data science
+at Columbia. Most of my personal data science projects are based on my hobbies
+and interests, like music and cooking.
 
-Etc, etc, etc
+I excel at data wrangling from messy sources and using my results to tell an
+interesting and compelling story.
