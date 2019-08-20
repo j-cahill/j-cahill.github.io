@@ -13,7 +13,7 @@ img2013 <-  rasterGrob(as.raster(readPNG("../data/final/wYears/map_2013.png")), 
 grid.arrange(img1992, img2013, ncol = 2)
 ```
 
-![](/images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 Visit the following link to view a year by year animation of nightlight
 imagery from 1992 to 2013:
@@ -80,7 +80,7 @@ imgGov <-  rasterGrob(as.raster(readPNG("../img/Tunisia-governorates.png")), int
 grid.arrange(imgLoc, imgGov, ncol = 2)
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 ### Team contribution
 
@@ -263,7 +263,7 @@ admin1_choropleth("tunisia", density, num_colors = 7,
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](/imagesNightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 Tunisia’s population is heavily concentrated on the coast and near the
 capital city of Tunis in particular, while the larger inland regions are
@@ -319,7 +319,7 @@ ggparcoord(occupation, columns = 3:11, alphaLines = .5,
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 This plot shows one line per governorate per gender for the year 2014,
 with the Y value representing the fraction of total persons fifteen
@@ -386,7 +386,7 @@ admin1_region_choropleth(df,
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 The variable consumption here is defined as the average consumption per
 capita of each governorate in 2015. Total consumption is a sum of the
@@ -435,7 +435,7 @@ ggplot(dataset, aes(population,mean)) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 This scatter plot of mean luminosity (in watts/cm2) against population
 (in thousands) by governorate shows some interesting trends, especially
@@ -469,7 +469,7 @@ g <- ggplot(tidyConsump15, aes(x = Consumption, y = fct_reorder(Governorates, Co
 g
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 This is a dot plot of consumption per capita (see 4.c for a thorough
 definition of this variable) by governorate for the year 2015. Tunis has
@@ -500,7 +500,7 @@ boxplot(del_sfax$`2013_mean`, horizontal = TRUE,
 stripchart(del_sfax$`2013_mean`, col = "blue", pch = 21, add = TRUE, method = "jitter")
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 To further examine the unusually low value of mean luminosity for the
 governorate of Sfax, we decided to examine it at a higher level of
@@ -533,7 +533,7 @@ ggplot(del_sfax, aes(del_sfax$NAME_2, del_sfax$`2013_mean`)) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ### (4.f) Exploring potential covariates of luminosity
 
@@ -598,7 +598,7 @@ g_stacked <- ggplot(appliances_tidy, aes(y = appliances_household,
 g_stacked
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 This plot compares the numbers of functional appliances per household by
 governorate. Appliances examined are air conditioners, dishwashers,
@@ -671,7 +671,7 @@ g_stacked <- ggplot(internet_tidy, aes(y = ict_household,
 g_stacked
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-16-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 This plot compares the number of Information and Communication
 Technologies (ICT) resources per household by governorate. ICTs examined
@@ -743,7 +743,7 @@ g_stacked <- ggplot(leisure_tidy, aes(y = leisure_household,
 g_stacked
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 This plot compares the number of leisure resources per household by
 governorate. Leisure resources examined are televisions, radios,
@@ -787,7 +787,7 @@ labs(color='Governorate',
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 This plot of luminosity by governorate by year shows that Tunis has had
 a significantly higher level of luminosity than the other governorates.
@@ -840,7 +840,7 @@ caption = "Sources: L'Institut National de la Statistique (INS), IMF World Econo
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-20-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 This plot further explores the connection between luminosity and
 Tunisian economic indicators from 1992 to 2013, but this time on a
@@ -943,7 +943,7 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
  caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 This graph shows the normalized relationship between the level of
 luminosity and GDP per capita PPP in Tunisia from 1992 to 2013. While
@@ -968,7 +968,7 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
 caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 Recall that luminosity and GDP growth have a slightly negative
 relationship (-0.38). This may provide some evidence for the theory of
@@ -992,7 +992,7 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
   caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")              
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 Finally, the negative relationship between government debt and
 luminosity can be seen in this graph. From 1992 to 2000, normalized
@@ -1027,7 +1027,7 @@ admin1_choropleth("tunisia", density, num_colors = 7, title = "Population Densit
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images\NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](../images\NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 This graph gave us our first indications that if luminosity and
 population density are inter-related like we hypothesized that we may
@@ -1048,7 +1048,7 @@ admin1_region_choropleth(df, num_colors= 1, legend = "Consumption by Millions of
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 This graph showed that while the same 3 governorates (Tunis, Monastir
 and Ben Arous) have the highest values of both consumption per capita
@@ -1078,7 +1078,7 @@ labs(color='Governorate', caption = "Source: L'Institut National de la Statistiq
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-27-1.png)
 
 This shows luminosity data over time for several select governorates.
 While a number of factors make it difficult for us to make year-to-year
@@ -1116,7 +1116,7 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
   theme(plot.caption = element_text(color = "grey68")) + xlab("Year") +ylab("Normalized Value") + labs(color='Normalized Value', caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")           
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 This graph shows one of our most interesting findings. It compares
 luminosity (watts/ cm<sup>2</sup>) and government debt (TND), with both
@@ -1262,7 +1262,7 @@ g_dot_facet <- ggplot(appliances_tidy, aes(x = appliances_household,
 g_dot_facet + facet_wrap(~appliances_type, ncol=1)
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 ``` r
 g_dot_facet <- ggplot(internet_tidy, aes(x = ict_household,
@@ -1273,7 +1273,7 @@ g_dot_facet <- ggplot(internet_tidy, aes(x = ict_household,
 g_dot_facet + facet_wrap(~ict_type, ncol=1)
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 ``` r
 g_dot_facet <- ggplot(leisure_tidy, aes(x = leisure_household,
@@ -1284,7 +1284,7 @@ g_dot_facet <- ggplot(leisure_tidy, aes(x = leisure_household,
 g_dot_facet + facet_wrap(~leisure_type, ncol=1)
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 ``` r
 # Subset of Data
@@ -1297,7 +1297,7 @@ ylab("Luminosity") +
 ggtitle("Luminosity of Four Governorates by Year") + labs(color='Governorate')
 ```
 
-![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-32-1.png)
+![](../images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 This is a representative subset of high, medium, and low level
 luminosity governorates as well as Sfax. From this we can see that the
