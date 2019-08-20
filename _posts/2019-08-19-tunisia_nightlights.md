@@ -1,3 +1,9 @@
+---
+title: Nightlight Satellite Imagery as a Predictor for Economic Activity in Tunisia
+date: 2019-08-19
+tags: ['visualization']
+---
+
 (1) Introduction
 ----------------
 
@@ -7,7 +13,7 @@ img2013 <-  rasterGrob(as.raster(readPNG("../data/final/wYears/map_2013.png")), 
 grid.arrange(img1992, img2013, ncol = 2)
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](/images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 Visit the following link to view a year by year animation of nightlight
 imagery from 1992 to 2013:
@@ -74,7 +80,7 @@ imgGov <-  rasterGrob(as.raster(readPNG("../img/Tunisia-governorates.png")), int
 grid.arrange(imgLoc, imgGov, ncol = 2)
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 ### Team contribution
 
@@ -246,8 +252,8 @@ analysis.
 density <- readxl::read_xlsx("../data/intermediate/density.xlsx")
 library(choroplethrAdmin1)
 library(choroplethr)
-admin1_choropleth("tunisia", density, num_colors = 7, 
-                  title = "Population Density", 
+admin1_choropleth("tunisia", density, num_colors = 7,
+                  title = "Population Density",
                   legend = "Population Density (km\u00b2)") +
   ggtitle("Tunisia's Population Density by Governorate",
           subtitle = "Year: 2014") +
@@ -257,7 +263,7 @@ admin1_choropleth("tunisia", density, num_colors = 7,
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](/imagesNightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 Tunisia’s population is heavily concentrated on the coast and near the
 capital city of Tunis in particular, while the larger inland regions are
@@ -275,45 +281,45 @@ combined governorate.
 ``` r
 # household / population data
 house_pop <- read_csv(here("data/intermediate",
-                                "master_file.csv")) %>% 
+                                "master_file.csv")) %>%
   rename(Region = governorate)
 
-occupation <- read_tun_data(here("data/raw", 
-"Distribution of the occupied population aged 15 years and over by the activity sector 11_18_2018 02_45_07.xlsx")) %>% 
+occupation <- read_tun_data(here("data/raw",
+"Distribution of the occupied population aged 15 years and over by the activity sector 11_18_2018 02_45_07.xlsx")) %>%
   mutate(Region = str_replace(Region, "Governorate of ", "")) %>% # Standardize governorate names
   filter(Region != "Tunisia")
 
 
-occupation <- occupation %>% 
-  mutate_at(vars(contains("_")), function(x) as.numeric(x) / house_pop$over_15_population) %>% 
+occupation <- occupation %>%
+  mutate_at(vars(contains("_")), function(x) as.numeric(x) / house_pop$over_15_population) %>%
   select(-ends_with("Total"))
 
 occupation <- occupation %>%
-  gather(contains("_"), key="key", value="value") %>% 
-  separate(key, into=c("sector", "gender"), sep="_") %>% 
+  gather(contains("_"), key="key", value="value") %>%
+  separate(key, into=c("sector", "gender"), sep="_") %>%
   spread(sector, value)
 ```
 
 ``` r
 library(GGally)
 # add y label - percent of total pop over 15 employed
-occ_names <- c("Region", "gender", "Agr./Fishing", "Pub. Works", "Education/Health/Admin", 
-"Manufacturing", "Mines/Energy", 
+occ_names <- c("Region", "gender", "Agr./Fishing", "Pub. Works", "Education/Health/Admin",
+"Manufacturing", "Mines/Energy",
 "Other Serv.", "Trade", "Transport", "Undeclares")
 names(occupation) <- occ_names
 ggparcoord(occupation, columns = 3:11, alphaLines = .5,
-           scale = "uniminmax", splineFactor = 10, groupColumn = 2) + 
+           scale = "uniminmax", splineFactor = 10, groupColumn = 2) +
   geom_vline(xintercept = 2:9, color = "lightblue") +
     ggtitle("Gender Disparity by Industry",
           subtitle = "Year: 2014") +
-  labs(x = "Industry", y= "Percent employed", 
+  labs(x = "Industry", y= "Percent employed",
   caption = "Source: L'Institut National de la Statistique (INS)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 This plot shows one line per governorate per gender for the year 2014,
 with the Y value representing the fraction of total persons fifteen
@@ -332,7 +338,7 @@ correlations between industries from this plot.
 ### (4.c) Consumption by Governorates
 
 ``` r
-consumption2015 <- 
+consumption2015 <-
 readxl::read_xlsx("../data/intermediate/Enquête Consommation 2010 12_08_2018 10_49_06.xlsx")
 
 names(consumption2015) <- consumption2015[1,] #copy 1st row
@@ -345,23 +351,23 @@ tidyConsump15 <- gather(totalConsump15, key="Governorates", value="Consumption")
 tidyConsump15 <- tidyConsump15[-1,]
 
 #removing Greater regions
-tidyConsump15 <- filter(tidyConsump15, !Governorates %in% 
+tidyConsump15 <- filter(tidyConsump15, !Governorates %in%
     c("Great Tunis", "Governorate of Ariana", "North East",
       "North West","Par grandes régions\\Centre Est",
       "Par grandes régions\\Centre Ouest","Par grandes régions\\Sud Est",
       "Par grandes régions\\Sud Ouest"))
 
-#Note: Choroplethr does not include the governorate, "Governorate of Ariana" 
+#Note: Choroplethr does not include the governorate, "Governorate of Ariana"
 
 #Rename governorate to match the ChoroplethrAdmin1 naming convention
-tidyConsump15$Governorates <- 
-  c("gouvernorat de tunis", "gouvernorat de ben arous", 
-    "gouvernorat de la manouba", "gouvernorat de nabeul", 
-    "gouvernorat de zaghouan", "gouvernorat de bizerte", 
+tidyConsump15$Governorates <-
+  c("gouvernorat de tunis", "gouvernorat de ben arous",
+    "gouvernorat de la manouba", "gouvernorat de nabeul",
+    "gouvernorat de zaghouan", "gouvernorat de bizerte",
     "gouvernorat de beja","gouvernorat de jendouba","gouvernorat de kef","gouvernorat de siliana", "gouvernorat de sousse",
     "gouvernorat de monastir", "gouvernorat de mahdia",
     "gouvernorat de sfax", "gouvernorat de kairouan",
-    "gouvernorat de kasserine", "gouvernorat de sidi bou zid", 
+    "gouvernorat de kasserine", "gouvernorat de sidi bou zid",
     "gouvernorat de gabes", "gouvernorat de medenine",
     "gouvernorat de tataouine", "gouvernorat de gafsa",
     "gouvernorat de tozeur","gouvernorat de kebili")
@@ -370,7 +376,7 @@ tidyConsump15$Governorates <-
 df = data.frame(region=tidyConsump15$Governorates, value=
 as.numeric(as.character(tidyConsump15$Consumption)) / 1000000)
 
-admin1_region_choropleth(df, 
+admin1_region_choropleth(df,
   legend = "Consumption by Millions of Tunisian Dinar (TND)") +
   ggtitle("Consumption by Governorate",
           subtitle = "Year: 2015") +
@@ -380,7 +386,7 @@ admin1_region_choropleth(df,
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 The variable consumption here is defined as the average consumption per
 capita of each governorate in 2015. Total consumption is a sum of the
@@ -414,22 +420,22 @@ library(ggrepel)
 
 dataset$population <- dataset$population / 1000
 
-ggplot(dataset, aes(population,mean)) + 
-    geom_point(color = "blue", size = 3) + 
-    geom_smooth(method = "lm", se = TRUE) + 
+ggplot(dataset, aes(population,mean)) +
+    geom_point(color = "blue", size = 3) +
+    geom_smooth(method = "lm", se = TRUE) +
     geom_label_repel(aes(label = governorate),box.padding   = 0.35,
                      point.padding = 0.5,
                      segment.color = 'grey50') +
   ggtitle("Luminosity Vs population by Governorates",
           subtitle = "Year: 2014") +
-  labs(x= "Population (thousands)", y="Luminosity (watts/cm\u00b2)", 
+  labs(x= "Population (thousands)", y="Luminosity (watts/cm\u00b2)",
        caption = "Source: National Oceanic and Atmospheric Administration (NOAA)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 This scatter plot of mean luminosity (in watts/cm2) against population
 (in thousands) by governorate shows some interesting trends, especially
@@ -455,7 +461,7 @@ g <- ggplot(tidyConsump15, aes(x = Consumption, y = fct_reorder(Governorates, Co
     geom_point(color = "blue") + ylab("") +
   ggtitle("Consumption by Governorate",
           subtitle = "Year: 2015") +
-  labs(x = "Consumption (thousands)", 
+  labs(x = "Consumption (thousands)",
        caption = "Source: L'Institut National de la Statistique (INS)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
@@ -463,7 +469,7 @@ g <- ggplot(tidyConsump15, aes(x = Consumption, y = fct_reorder(Governorates, Co
 g
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 This is a dot plot of consumption per capita (see 4.c for a thorough
 definition of this variable) by governorate for the year 2015. Tunis has
@@ -489,12 +495,12 @@ in this graph is consumption in thousands of Tunisian Dinars (TND).
 lum_del <- read_csv("../data/intermediate/tun_lum_delegation_93_13.csv")
 
 del_sfax <- filter(lum_del,lum_del$NAME_1 == "Sfax")
-boxplot(del_sfax$`2013_mean`, horizontal = TRUE, 
+boxplot(del_sfax$`2013_mean`, horizontal = TRUE,
         main = "Luminosity of Sfax Delegations (Year: 2013)", xlab = "Luminosity (watts/cm\u00b2)")
 stripchart(del_sfax$`2013_mean`, col = "blue", pch = 21, add = TRUE, method = "jitter")
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 To further examine the unusually low value of mean luminosity for the
 governorate of Sfax, we decided to examine it at a higher level of
@@ -520,30 +526,30 @@ ggplot(del_sfax, aes(del_sfax$NAME_2, del_sfax$`2013_mean`)) +
   labs(y = "Luminosity (mean)", x = "Sfax delegation") +
   ggtitle("Which are the leading delegations within Sfax?",
           subtitle = "A closer look at luminosity by delegations within Sfax") +
-  labs(x= "Sfax Delegations", y="Luminosity (watts/cm\u00b2)", 
+  labs(x= "Sfax Delegations", y="Luminosity (watts/cm\u00b2)",
        caption = "Source: National Oceanic and Atmospheric Administration (NOAA)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ### (4.f) Exploring potential covariates of luminosity
 
 ``` r
 # appliance data
-  
-appliances <- read_tun_data(here("data/raw", 
- "Households by possession of electrical household equipements 11_18_2018 02_51_51.xlsx")) %>% 
-  mutate(Region = str_replace(Region, "Governorate of ", "")) %>% 
+
+appliances <- read_tun_data(here("data/raw",
+ "Households by possession of electrical household equipements 11_18_2018 02_51_51.xlsx")) %>%
+  mutate(Region = str_replace(Region, "Governorate of ", "")) %>%
   # Standardize governorate names
   filter(Region != "Tunisia")
-    
+
 
 # household / population data
 house_pop <- read_csv(here("data/intermediate",
-  "master_file.csv")) %>% 
+  "master_file.csv")) %>%
   rename(Region = governorate)
 
 appliances <- inner_join(select(house_pop, Region, households), appliances)
@@ -552,13 +558,13 @@ appliances <- inner_join(select(house_pop, Region, households), appliances)
 ``` r
 # tidy
 appliances <- appliances %>%
-  gather(contains("_"), key="key", value="value") %>% 
-  separate(key, into=c("Appliance", "Measure"), sep="_") %>% 
+  gather(contains("_"), key="key", value="value") %>%
+  separate(key, into=c("Appliance", "Measure"), sep="_") %>%
   spread(Appliance, value)
 
 # we only want total
 appliances_total <- appliances %>%
-  filter(Measure == "Total") %>% 
+  filter(Measure == "Total") %>%
   select(-Measure)
 
 #fix the names
@@ -566,14 +572,14 @@ ap_names = c("Region", "households", "AC", "heat", "dishwasher", "stove", "fridg
 names(appliances_total) <- ap_names
 
 # cleaning up
-appliances_total <- appliances_total %>% 
-  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>% 
-  mutate(Region = str_replace(Region, "Governorate of ", "")) 
+appliances_total <- appliances_total %>%
+  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>%
+  mutate(Region = str_replace(Region, "Governorate of ", ""))
 ```
 
 ``` r
-appliances_tidy <- appliances_total %>% 
-  gather(-Region, -households, key="appliances_type", value="num_appliances") %>% 
+appliances_tidy <- appliances_total %>%
+  gather(-Region, -households, key="appliances_type", value="num_appliances") %>%
   mutate(appliances_household = num_appliances / households)
 
 g_stacked <- ggplot(appliances_tidy, aes(y = appliances_household,
@@ -583,7 +589,7 @@ g_stacked <- ggplot(appliances_tidy, aes(y = appliances_household,
     geom_bar(stat="identity") + ylab("") +
     ggtitle("Appliances Resources per Household",
           subtitle = "Year: 2014") +
-  labs(x = "Number of Appliances per Household", y= "Governorates", 
+  labs(x = "Number of Appliances per Household", y= "Governorates",
        caption = "Source: L'Institut National de la Statistique (INS)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
@@ -592,7 +598,7 @@ g_stacked <- ggplot(appliances_tidy, aes(y = appliances_household,
 g_stacked
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-13-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 This plot compares the numbers of functional appliances per household by
 governorate. Appliances examined are air conditioners, dishwashers,
@@ -611,10 +617,10 @@ is that landlocked governorates (which also tend to have lower
 consumption) tend to have less resources.
 
 ``` r
-internet <- read_tun_data(here("data/raw", 
-                                 "Households by possession of ICTs 11_18_2018 02_51_58.xlsx")) %>% 
+internet <- read_tun_data(here("data/raw",
+                                 "Households by possession of ICTs 11_18_2018 02_51_58.xlsx")) %>%
   mutate(Region = str_replace(Region, "Governorate of ", "")) %>% # Standardize governorate names
-  filter(Region != "Tunisia") %>% 
+  filter(Region != "Tunisia") %>%
   select(-contains("households_"))
 
 internet <- inner_join(select(house_pop, Region, households), internet)
@@ -623,13 +629,13 @@ internet <- inner_join(select(house_pop, Region, households), internet)
 ``` r
 # tidy
 internet <- internet %>%
-  gather(contains("_"), key="key", value="value") %>% 
-  separate(key, into=c("Appliance", "Measure"), sep="_") %>% 
+  gather(contains("_"), key="key", value="value") %>%
+  separate(key, into=c("Appliance", "Measure"), sep="_") %>%
   spread(Appliance, value)
 
 # we only want total
 internet_total <- internet %>%
-  filter(Measure == "Total") %>% 
+  filter(Measure == "Total") %>%
   select(-Measure)
 
 #fix the names
@@ -637,16 +643,16 @@ internet_names = c("Region", "households", "computer", "landline", "internet", "
 names(internet_total) <- internet_names
 
 # cleaning up
-internet_total <- internet_total %>% 
-  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>% 
-  mutate(Region = str_replace(Region, "Governorate of ", "")) 
+internet_total <- internet_total %>%
+  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>%
+  mutate(Region = str_replace(Region, "Governorate of ", ""))
 ```
 
 ``` r
 #graph it
 
-internet_tidy <- internet_total %>% 
-  gather(-Region, -households, key="ict_type", value="num_ict") %>% 
+internet_tidy <- internet_total %>%
+  gather(-Region, -households, key="ict_type", value="num_ict") %>%
   mutate(ict_household = num_ict / households)
 
 g_stacked <- ggplot(internet_tidy, aes(y = ict_household,
@@ -656,7 +662,7 @@ g_stacked <- ggplot(internet_tidy, aes(y = ict_household,
     geom_bar(stat="identity") + ylab("") +
     ggtitle("Information and Communications Technology (ICT) Resources per Household",
           subtitle = "Year: 2014") +
-  labs(x = "Number of Appliances per Household", y= "Governorates", 
+  labs(x = "Number of Appliances per Household", y= "Governorates",
        caption = "Source: L'Institut National de la Statistique (INS)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
@@ -665,7 +671,7 @@ g_stacked <- ggplot(internet_tidy, aes(y = ict_household,
 g_stacked
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-16-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 This plot compares the number of Information and Communication
 Technologies (ICT) resources per household by governorate. ICTs examined
@@ -687,23 +693,23 @@ Leisure Resources
 =================
 
 ``` r
-leisure <- read_tun_data(here("data/raw", 
-                                 "Households by possession of leisure resources 11_18_2018 02_51_43.xlsx")) %>% 
+leisure <- read_tun_data(here("data/raw",
+                                 "Households by possession of leisure resources 11_18_2018 02_51_43.xlsx")) %>%
   mutate(Region = str_replace(Region, "Governorate of ", "")) %>% # Standardize governorate names
-  filter(Region != "Tunisia") %>% 
+  filter(Region != "Tunisia") %>%
   select(-contains("households_"))
 
 leisure <- inner_join(select(house_pop, Region, households), leisure)
 
 # tidy
 leisure <- leisure %>%
-  gather(contains("_"), key="key", value="value") %>% 
-  separate(key, into=c("Appliance", "Measure"), sep="_") %>% 
+  gather(contains("_"), key="key", value="value") %>%
+  separate(key, into=c("Appliance", "Measure"), sep="_") %>%
   spread(Appliance, value)
 
 # we only want total
 leisure_total <- leisure %>%
-  filter(Measure == "Total") %>% 
+  filter(Measure == "Total") %>%
   select(-Measure)
 
 #fix the names
@@ -712,13 +718,13 @@ names(leisure_total) <- leisure_names
 
 # cleaning up
 leisure_total <- leisure_total %>% select("Region", "households", "car", "dish", "radio", "TV") %>%
-  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>% 
-  mutate(Region = str_replace(Region, "Governorate of ", "")) 
+  mutate_at(.vars = vars(-Region), funs(as.numeric)) %>%
+  mutate(Region = str_replace(Region, "Governorate of ", ""))
 ```
 
 ``` r
-leisure_tidy <- leisure_total %>% 
-  gather(-Region, -households, key="leisure_type", value="num_leisure") %>% 
+leisure_tidy <- leisure_total %>%
+  gather(-Region, -households, key="leisure_type", value="num_leisure") %>%
   mutate(leisure_household = num_leisure / households)
 
 g_stacked <- ggplot(leisure_tidy, aes(y = leisure_household,
@@ -728,7 +734,7 @@ g_stacked <- ggplot(leisure_tidy, aes(y = leisure_household,
     geom_bar(stat="identity") + ylab("") +
     ggtitle("Leisure Resources per Household",
           subtitle = "Year: 2014") +
-  labs(x = "Leisure Resources per Household", y= "Governorates", 
+  labs(x = "Leisure Resources per Household", y= "Governorates",
        caption = "Source: L'Institut National de la Statistique (INS)") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
@@ -737,7 +743,7 @@ g_stacked <- ggplot(leisure_tidy, aes(y = leisure_household,
 g_stacked
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 This plot compares the number of leisure resources per household by
 governorate. Leisure resources examined are televisions, radios,
@@ -772,7 +778,7 @@ geom_line() +
 
 xlab("Year") +
 ylab("Luminosity (watts/cm\u00b2)") +
-labs(color='Governorate', 
+labs(color='Governorate',
     caption = "Source: L'Institut National de la Statistique (INS)") +
     ggtitle("Luminosity by Governorate by Year",
           subtitle = "1992 - 2013") +
@@ -781,7 +787,7 @@ labs(color='Governorate',
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 This plot of luminosity by governorate by year shows that Tunis has had
 a significantly higher level of luminosity than the other governorates.
@@ -802,10 +808,10 @@ turmoil of that revolution caused luminosity in Tunisia to crash for
 that particular year.
 
 ``` r
-tun <- lum %>% 
+tun <- lum %>%
    group_by(year) %>%                         
    summarise(count = sum(count), sum = sum(sum))
-   
+
 tunisia_economy <- read_csv("../data/intermediate/tunisia_economy.csv")
 tunisia <- merge(tun,tunisia_economy,by="year")
 
@@ -824,17 +830,17 @@ ggplot(subset(melt_tunisia, variable %in% c("avg_lum", "govt_debt", "gdp_per_cap
        y=indexedvalue,
        color=variable, group = variable))+
   geom_line() + ggtitle("Indexed Economic Indicators for Tunisia", subtitle = "1992 - 2013") +
-  scale_color_discrete(name = "Variable", labels = c("GDP Growth Rate", "GDP per capita (PPP)", "Inflation Rate", "Unemployment Rate", "Government Debt", "Luminosity")) + 
-  xlab("Year") + 
-  ylab("Indexed Value") + 
+  scale_color_discrete(name = "Variable", labels = c("GDP Growth Rate", "GDP per capita (PPP)", "Inflation Rate", "Unemployment Rate", "Government Debt", "Luminosity")) +
+  xlab("Year") +
+  ylab("Indexed Value") +
   labs(color='Variable',
-caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database") + 
+caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-20-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 This plot further explores the connection between luminosity and
 Tunisian economic indicators from 1992 to 2013, but this time on a
@@ -924,7 +930,7 @@ are associated with the economy not doing well, and thus there is less
 luminosity to be observed.
 
 ``` r
-ggplot() + 
+ggplot() +
 geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=1.5, alpha =.5)+
   geom_line(data=tunisia,aes(y = rescale(gdp_ppp), x=year,colour="red"),size=1.5, alpha =.5)+
   scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "GDP per capita (PPP)")) +
@@ -937,7 +943,7 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
  caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 This graph shows the normalized relationship between the level of
 luminosity and GDP per capita PPP in Tunisia from 1992 to 2013. While
@@ -949,7 +955,7 @@ per capita is a more reliable measure of economic activity compared to
 the level of luminosity.
 
 ``` r
-ggplot() + 
+ggplot() +
 geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=1.5, alpha =.5)+
   geom_line(data=tunisia,aes(y = rescale(gdp_growth), x=year,colour="orange"),size=1.5, alpha =.5)+
   scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "GDP Growth Rate")) +
@@ -958,11 +964,11 @@ geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68")) + xlab("Year") +
-  ylab("Normalized Value") + labs(color='Normalized Value', 
+  ylab("Normalized Value") + labs(color='Normalized Value',
 caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 Recall that luminosity and GDP growth have a slightly negative
 relationship (-0.38). This may provide some evidence for the theory of
@@ -974,19 +980,19 @@ vice versa; observe the time ranges of 1995-2000, 2003 to 2008, and
 2011-2013 to see this trend.
 
 ``` r
-ggplot() + 
+ggplot() +
 geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=1.5, alpha =.5)+
   geom_line(data=tunisia,aes(y = rescale(govt_debt), x=year,colour="red"),size=1.5, alpha =.5)+
-  scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "Government Debt")) + 
+  scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "Government Debt")) +
   ggtitle("Luminosity vs. Government Debt in Tunisia (Normalized)", subtitle = "1992 - 2013") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68")) + xlab("Year") +
-  ylab("Normalized Value") + labs(color='Normalized Value', 
+  ylab("Normalized Value") + labs(color='Normalized Value',
   caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")              
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 Finally, the negative relationship between government debt and
 luminosity can be seen in this graph. From 1992 to 2000, normalized
@@ -1021,7 +1027,7 @@ admin1_choropleth("tunisia", density, num_colors = 7, title = "Population Densit
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](images\NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 This graph gave us our first indications that if luminosity and
 population density are inter-related like we hypothesized that we may
@@ -1042,7 +1048,7 @@ admin1_region_choropleth(df, num_colors= 1, legend = "Consumption by Millions of
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 This graph showed that while the same 3 governorates (Tunis, Monastir
 and Ben Arous) have the highest values of both consumption per capita
@@ -1072,7 +1078,7 @@ labs(color='Governorate', caption = "Source: L'Institut National de la Statistiq
   theme(plot.caption = element_text(color = "grey68"))
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-27-1.png)
 
 This shows luminosity data over time for several select governorates.
 While a number of factors make it difficult for us to make year-to-year
@@ -1100,17 +1106,17 @@ Our final aim was to draw a connection between various economic
 indicators and luminosity in Tunisia over time:
 
 ``` r
-ggplot() + 
+ggplot() +
 geom_line(data=tunisia,aes(y = rescale(avg_lum),x= year,colour="darkblue"),size=1.5, alpha =.5)+
   geom_line(data=tunisia,aes(y = rescale(govt_debt), x=year,colour="red"),size=1.5, alpha =.5)+
-  scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "Government Debt")) + 
+  scale_color_discrete(name = "Normalized Variable", labels = c("Luminosity", "Government Debt")) +
   ggtitle("Luminosity vs. Government Debt in Tunisia (Normalized)", subtitle = "1992 - 2013") +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68")) + xlab("Year") +ylab("Normalized Value") + labs(color='Normalized Value', caption = "Sources: L'Institut National de la Statistique (INS), IMF World Economic Outlook Database")           
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 This graph shows one of our most interesting findings. It compares
 luminosity (watts/ cm<sup>2</sup>) and government debt (TND), with both
@@ -1249,36 +1255,36 @@ for an individual governorate.
 
 ``` r
 g_dot_facet <- ggplot(appliances_tidy, aes(x = appliances_household,
-                                  y = reorder(Region, appliances_household))) + 
+                                  y = reorder(Region, appliances_household))) +
     geom_point() + ylab("") +
     ggtitle("appliances Resources per Household")
 
 g_dot_facet + facet_wrap(~appliances_type, ncol=1)
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 ``` r
 g_dot_facet <- ggplot(internet_tidy, aes(x = ict_household,
-                                  y = reorder(Region, ict_household))) + 
+                                  y = reorder(Region, ict_household))) +
     geom_point() + ylab("") +
     ggtitle("internet Resources per Household")
 
 g_dot_facet + facet_wrap(~ict_type, ncol=1)
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 ``` r
 g_dot_facet <- ggplot(leisure_tidy, aes(x = leisure_household,
-                                  y = reorder(Region, leisure_household))) + 
+                                  y = reorder(Region, leisure_household))) +
     geom_point() + ylab("") +
     ggtitle("Leisure Resources per Household")
 
 g_dot_facet + facet_wrap(~leisure_type, ncol=1)
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 ``` r
 # Subset of Data
@@ -1288,10 +1294,10 @@ ggplot(subset(lum, NAME_1 %in% c("Tunis", "Sfax", "Monastir", "Tataouine")),
        color=NAME_1, group = NAME_1))+
   geom_line() +
 ylab("Luminosity") +
-ggtitle("Luminosity of Four Governorates by Year") + labs(color='Governorate') 
+ggtitle("Luminosity of Four Governorates by Year") + labs(color='Governorate')
 ```
 
-![](NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-32-1.png)
+![](images/NightligtSatelliteImageryAsPredictorForEconomicActivity_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 This is a representative subset of high, medium, and low level
 luminosity governorates as well as Sfax. From this we can see that the
