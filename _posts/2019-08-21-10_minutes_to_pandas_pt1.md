@@ -958,7 +958,7 @@ so I used the
 package to pass our python dataframe directly to an R dataframe, and
 then converted it to a tibble.
 
-To drop any rows that have missing data.
+To drop any rows that have missing data:
 
 ``` r
 print(drop_na(df1))
