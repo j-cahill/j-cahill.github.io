@@ -954,7 +954,7 @@ df1 <- as_tibble(py$df1, rownames= 'Dates')
 
 I got tired of trying to make these pandas dataframes from scratch in R,
 so I used the
-(reticulate)\[<a href="https://cran.r-project.org/web/packages/reticulate/vignettes/r_markdown.html" class="uri">https://cran.r-project.org/web/packages/reticulate/vignettes/r_markdown.html</a>\]
+[reticulate](<a href="https://cran.r-project.org/web/packages/reticulate/vignettes/r_markdown.html" class="uri">https://cran.r-project.org/web/packages/reticulate/vignettes/r_markdown.html</a>\)
 package to pass our python dataframe directly to an R dataframe, and
 then converted it to a tibble.
 
