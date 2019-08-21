@@ -1,5 +1,5 @@
 ---
-title: 10 Minutes to Pandas, in R
+title: 10 Minutes to Pandas, in R (Part One)
 date: 2019-08-21
 tags: ['tutorial']
 ---
