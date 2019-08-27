@@ -7,12 +7,12 @@ tags: ['tutorial']
 Introduction
 ============
 
-I started using R and the Tidyverse recently for EDA tasks recently. I
+I started using R and the Tidyverse for EDA tasks recently. I
 have a lot of experience cleaning data in Pandas, and when I started
 using R I found myself often thinking “I know how to do this task in
-pandas… I wish there was some type of thing that would show me how to
+pandas. I wish there was some type of thing that would show me how to
 accomplish basic tasks that I do in pandas in R”. That’s why I made
-this. I’ll be going through all sections of the [10 Minutes to
+this resource. I’ll be going through all sections of the [10 Minutes to
 Pandas](https://pandas.pydata.org/pandas-docs/stable/10min.html)
 tutorial, and showing how to accomplish these tasks in R (where
 Relevant).
@@ -60,7 +60,7 @@ Series – Vectors
 ----------------
 
 The basic data structure that we work with in Pandas is a series, which
-more or less represents a column in a dataframe. The analagous data
+more or less represents a column in a dataframe. The analogous data
 structure in R is called a vector.
 
 In Pandas, we create a series by passing a list of values, and Pandas
@@ -124,11 +124,11 @@ print(df)
 
 This is one of the largest points of divergence for R and Pandas when it
 comes to representing DataFrames. Pandas bases many things on the index,
-which is different than a row name and is (supposed to, but not eforced
+which is different than a row name and is (supposed to, but not enforced
 to be) a unique value denoting an observation. Base R has something
 called rownames, which is similar to an index. Tibble, which is a type
 of DataFrame used in the Tidyverse, does not use any type of index or
-row name. So to make this dataframe in base R we would do the following:
+row name. So, to make this dataframe in base R we would do the following:
 
 ``` r
 library(lubridate) # Package within the tidyverse for dealing with dates
@@ -208,7 +208,7 @@ factors (like data.frame does), and is more consistent with return types
 in subsetting. Notice we don’t have to do anything else to check the
 dtypes, as they’re displayed when we print the tibble. If your tibble
 has too many columns to view them all just by printing, you can use
-`glimpse(tibble)` From here on out we’ll be working only with tibbles in
+`glimpse(tibble)` From here on out we’ll be mostly working with tibbles in
 R.
 
 ``` r
@@ -398,7 +398,7 @@ Sorting
 -------
 
 In Pandas, we can sort our dataframe by columns (axis=1), or by rows
-(asix=0):
+(axis=0):
 
 ``` python
 print(df.sort_index(axis=1, ascending=False))
@@ -515,7 +515,7 @@ Selection by Label
 We select things by index using `loc` in Pandas. You can get more detail
 on this in [10 Minutes to
 Pandas](https://pandas.pydata.org/pandas-docs/stable/10min.html), but I
-won’t address it here as there is no feature analagous to an index to
+won’t address it here as there is no feature analogous to an index to
 use for selection in R.
 
 Selection by Position
@@ -634,7 +634,7 @@ Boolean Indexing
 
 *Python*
 
-Using a single column’s values to select data.
+Using a single column’s values to select data:
 
 ``` python
 print(df[df.A > 0])
@@ -658,7 +658,7 @@ print(df[df > 0])
     ## 2013-01-05       NaN  0.793149       NaN       NaN
     ## 2013-01-06       NaN       NaN  0.371945  0.074324
 
-Using the `isin()` method for filtering.
+Using the `isin()` method for filtering:
 
 ``` python
 df2 = df.copy()
@@ -913,7 +913,7 @@ print(df1)
     ## 2013-01-03  0.143935 -0.233053 -0.618928 -0.514150  2.0  NaN
     ## 2013-01-04  0.463793  0.984832 -0.698747 -0.564141  3.0  NaN
 
-To drop any rows that have missing data.
+To drop any rows that have missing data:
 
 ``` python
 print(df1.dropna(how='any'))
@@ -922,7 +922,7 @@ print(df1.dropna(how='any'))
     ##                    A         B        C         D    F    E
     ## 2013-01-02 -1.322542 -1.150502 -0.32888  0.034351  1.0  1.0
 
-Filling missing data.
+Filling missing data:
 
 ``` python
 print(df1.fillna(value=5))
@@ -934,7 +934,7 @@ print(df1.fillna(value=5))
     ## 2013-01-03  0.143935 -0.233053 -0.618928 -0.514150  2.0  5.0
     ## 2013-01-04  0.463793  0.984832 -0.698747 -0.564141  3.0  5.0
 
-To get the boolean mask where values are nan.
+To get the boolean mask where values are nan:
 
 ``` python
 print(pd.isna(df1))
